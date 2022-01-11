@@ -5,6 +5,7 @@ const ciudad = $formulario.ciudad.value;
 const comportamiento = $formulario.comportamiento.value;
 const descripcionRegalo = $formulario['descripcion-regalo'].value;
 
+
 function validarNombre(nombre){
     if (nombre.length === 0 ){
         return 'Este campo debe tener algun caracter'
@@ -23,8 +24,9 @@ function validarCiudad(ciudad){
     }
 } 
 
-function validarDescripcionRegalo(){
+function validarDescripcionRegalo(descripcionRegalo){
     if (descripcionRegalo.length === 0){
         return 'Debe escribir que le gustaria recibir'
     }
+    
 }

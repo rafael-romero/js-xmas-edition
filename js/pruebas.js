@@ -13,3 +13,19 @@ function probarValidarNombre() {
 }
 
 probarValidarNombre();
+
+function probarValidarCiudad(){
+    console.assert(
+        validarCiudad('') === 'Debe elegir una ciudad por favor!', 
+        'validar ciudad no valido que ciudad es elegida');
+}
+
+probarValidarCiudad();
+
+function probarValidarDescripcionRegalo(){
+    console.assert(
+        validarDescripcionRegalo(0) === 'Debe escribir que le gustaria recibir', 
+        'Debe escribir que le gustaria recibir');
+}
+
+probarValidarDescripcionRegalo();

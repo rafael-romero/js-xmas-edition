@@ -12,16 +12,12 @@ function probarValidarNombre() {
   );
 }
 
-probarValidarNombre();
-
 function probarValidarCiudad() {
   console.assert(
     validarCiudad("") === "Debe elegir una ciudad por favor!",
     "validar ciudad no valido que ciudad es elegida"
   );
 }
-
-probarValidarCiudad();
 
 function probarValidarDescripcionRegalo() {
   console.assert(
@@ -30,4 +26,10 @@ function probarValidarDescripcionRegalo() {
   );
 }
 
-probarValidarDescripcionRegalo();
+function ejecutarpruebas() {
+  probarValidarNombre();
+  probarValidarCiudad();
+  probarValidarDescripcionRegalo();
+}
+
+ejecutarpruebas();

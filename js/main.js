@@ -20,10 +20,12 @@ function validarCiudad(ciudad) {
   if (ciudad === "") {
     return "Debe elegir una ciudad por favor!";
   }
+  return "";
 }
 
 function validarDescripcionRegalo(descripcionRegalo) {
   if (descripcionRegalo.length === 0) {
     return "Debe escribir que le gustaria recibir";
   }
+  return "";
 }

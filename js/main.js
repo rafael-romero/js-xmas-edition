@@ -13,6 +13,7 @@ function validarNombre(nombre) {
   if (nombre.length > 50) {
     return "Este campo debe tener menos de 50 caracteres";
   }
+  
   return "";
 }
 
@@ -26,6 +27,10 @@ function validarCiudad(ciudad) {
 function validarDescripcionRegalo(descripcionRegalo) {
   if (descripcionRegalo.length === 0) {
     return "Debe escribir que le gustaria recibir";
-  }
-  return "";
+  } else if (descripcionRegalo.length >= 100){
+    return "El texto que escribio es demasiado largo, debe achicarlo"
+  } else {
+    return "";
+  }  
 }
+

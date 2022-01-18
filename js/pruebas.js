@@ -12,6 +12,11 @@ function probarValidarNombre() {
   );
 
   console.assert(
+    validarNombre("asdasda2138941") === "El campo nombre solo acepta letras",
+    "validarNombre no valido que el nombre solo contenga letras"
+  );
+
+  console.assert(
     validarNombre("Rafael") === "",
     "validarNombre fallo la validacion con un nombre valido"
   );
@@ -33,17 +38,23 @@ function probarValidarDescripcionRegalo() {
     validarDescripcionRegalo("") === "Debe escribir que le gustaria recibir",
     "validarDescripcion no valido que la descripcion no sea vacia"
   );
+
   console.assert(
-    validarDescripcionRegalo("afgdfasdnmopodsfnlnwernafgdfasdnmopodsfnlnwernafgdfasdnmopodsfnlnwernafgdfasdnmopodsfnlnwernafgdfasdnmopodsfnlnwern") 
-    === "El texto que escribio es demasiado largo, debe achicarlo",
+    validarDescripcionRegalo(
+      "afgdfasdnmopodsfnlnwernafgdfasdnmopodsfnlnwernafgdfasdnmopodsfnlnwernafgdfasdnmopodsfnlnwernafgdfasdnmopodsfnlnwern"
+    ) === "El texto que escribio es demasiado largo, debe achicarlo",
     "validarDescripcionRegalo no valido que lo escrito sea tan largo"
   );
+
   console.assert(
-    validarDescripcionRegalo('Quiero aprender programacion') === '',
+    validarDescripcionRegalo("pelota") === "",
     "validarDescripcionRegalo no valido lo escrito con un texto correcto"
   );
-
-
+  console.assert(
+    validarDescripcionRegalo(",.,...,") ===
+      "El campo descripcion solo puede tener numeros y letras",
+    "validarDescripcionRegalo no valido que lo ingresado solo sean numeros y letras"
+  );
 }
 
 function ejecutarpruebas() {

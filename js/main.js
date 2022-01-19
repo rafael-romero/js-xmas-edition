@@ -1,10 +1,3 @@
-const $formulario = document.querySelector("#carta-a-santa");
-
-const nombre = $formulario.nombre.value;
-const ciudad = $formulario.ciudad.value;
-const comportamiento = $formulario.comportamiento.value;
-const descripcionRegalo = $formulario["descripcion-regalo"].value;
-
 function validarNombre(nombre) {
   if (nombre.length === 0) {
     return "Este campo debe tener algun caracter";
@@ -40,3 +33,47 @@ function validarDescripcionRegalo(descripcionRegalo) {
   }
 }
 
+function validarFormulario(event){
+  const nombre = $formulario.nombre.value;
+  const ciudad = $formulario.ciudad.value;
+  const descripcionRegalo = $formulario["descripcion-regalo"].value;
+  
+  const errorNombre = validarNombre(nombre);
+  const errorCiudad = validarNombre(ciudad);
+  const errorDescripcionRegalo = validarNombre(descripcionRegalo);
+
+  const errores = {
+    nombre: errorNombre,
+    ciudad: errorCiudad,
+    descripcionRegalo: errorDescripcionRegalo
+  }
+
+  manejarErrores(errores);
+
+  event.preventDefault();
+}
+
+function manejarErrores(errores){
+  errorNombre = errores.nombre;
+  errorCiudad = errores.ciudad;
+  errorDescripcionRegalo = errores.descripcionRegalo;
+
+  if (errorNombre){
+    $formulario.nombre.className = "error";
+  } else {
+    $formulario.nombre.className = "";
+  }
+  if (errorCiudad){
+    $formulario.ciudad.className = "error";
+  } else {
+    $formulario.ciudad.className = "";
+  }
+  if (errorDescripcionRegalo){
+    $formulario["descripcion-regalo"].className = "error";
+  } else {
+    $formulario["descripcion-regalo"].className = "";
+  }
+}
+
+const $formulario = document.querySelector("#carta-a-santa");
+$formulario.onsubmit = validarFormulario;

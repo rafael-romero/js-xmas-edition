@@ -33,11 +33,11 @@ function validarDescripcionRegalo(descripcionRegalo) {
   }
 }
 
-function validarFormulario(event){
+function validarFormulario(event) {
   const nombre = $formulario.nombre.value;
   const ciudad = $formulario.ciudad.value;
   const descripcionRegalo = $formulario["descripcion-regalo"].value;
-  
+
   const errorNombre = validarNombre(nombre);
   const errorCiudad = validarCiudad(ciudad);
   const errorDescripcionRegalo = validarDescripcionRegalo(descripcionRegalo);
@@ -45,34 +45,24 @@ function validarFormulario(event){
   const errores = {
     nombre: errorNombre,
     ciudad: errorCiudad,
-    descripcionRegalo: errorDescripcionRegalo
-  }
+    "descripcion-regalo": errorDescripcionRegalo,
+  };
 
   manejarErrores(errores);
 
   event.preventDefault();
 }
 
-function manejarErrores(errores){
-  errorNombre = errores.nombre;
-  errorCiudad = errores.ciudad;
-  errorDescripcionRegalo = errores.descripcionRegalo;
-
-  if (errorNombre){
-    $formulario.nombre.className = "error"; 
-  } else {
-    $formulario.nombre.className = "";
-  }
-  if (errorCiudad){
-    $formulario.ciudad.className = "error";
-  } else {
-    $formulario.ciudad.className = "";
-  }
-  if (errorDescripcionRegalo){
-    $formulario["descripcion-regalo"].className = "error";
-  } else {
-    $formulario["descripcion-regalo"].className = "";
-  }
+function manejarErrores(errores) {
+  const llaves = Object.keys(errores);
+  llaves.forEach(function (llave) {
+    const error = errores[llave];
+    if (error) {
+      $formulario[llave].className = "error";
+    } else {
+      $formulario[llave].className = "";
+    }
+  });
 }
 
 const $formulario = document.querySelector("#carta-a-santa");

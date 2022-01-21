@@ -20,11 +20,36 @@ function crearEdadFamiliares(numero) {
   }
 }
 
+
+function validarCantidadFamiliares(cantidadFamiliares){
+  if (cantidadFamiliares.length === 0){
+    return "Debe ingresar al menos un familiar"
+  }
+
+  if (!/^[0-9]+$/.test(cantidadFamiliares)){
+    return "Solo puede ingresar numeros enteros"
+  }
+  
+  if (cantidadFamiliares > 100)
+    return "Es asombroso que tenga tantos familiares"
+
+  return "";
+}
+
+
+
+
 const $botonSiguiente = document.querySelector("#siguiente");
 
 $botonSiguiente.onclick = function () {
   const $cantidadFamiliares = document.querySelector("#cantidad-familiares");
   const cantidadFamiliares = Number($cantidadFamiliares.value);
+
+  const errorCantidadFamiliares = validarCantidadFamiliares(cantidadFamiliares);
+  const errores = {
+    "cantidad-familiares": errorCantidadFamiliares
+  };
+
   crearEdadFamiliares(cantidadFamiliares);
 
   return false;

@@ -39,8 +39,8 @@ function validarFormulario(event){
   const descripcionRegalo = $formulario["descripcion-regalo"].value;
   
   const errorNombre = validarNombre(nombre);
-  const errorCiudad = validarNombre(ciudad);
-  const errorDescripcionRegalo = validarNombre(descripcionRegalo);
+  const errorCiudad = validarCiudad(ciudad);
+  const errorDescripcionRegalo = validarDescripcionRegalo(descripcionRegalo);
 
   const errores = {
     nombre: errorNombre,
@@ -59,7 +59,7 @@ function manejarErrores(errores){
   errorDescripcionRegalo = errores.descripcionRegalo;
 
   if (errorNombre){
-    $formulario.nombre.className = "error";
+    $formulario.nombre.className = "error"; 
   } else {
     $formulario.nombre.className = "";
   }

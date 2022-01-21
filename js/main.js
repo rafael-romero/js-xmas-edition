@@ -48,21 +48,41 @@ function validarFormulario(event) {
     "descripcion-regalo": errorDescripcionRegalo,
   };
 
-  manejarErrores(errores);
+  esExito = manejarErrores(errores) === 0;
+
+  if(esExito){
+    $formulario.className = "oculto";
+    document.querySelector("#exito").className = "";
+  }
 
   event.preventDefault();
 }
 
 function manejarErrores(errores) {
   const llaves = Object.keys(errores);
+  const $errores = document.querySelector('#errores');
+  let cantidadErrores = 0;
+
   llaves.forEach(function (llave) {
     const error = errores[llave];
+
     if (error) {
+      cantidadErrores++;
       $formulario[llave].className = "error";
+      
+      const $error = document.createElement('li');
+      $error.innerText = error;
+      $errores.appendChild($error);
+
+
     } else {
       $formulario[llave].className = "";
+      //borrar el campo adecuado, lo creo si no existe, si existe y no hay error lo borro
+
+
     }
   });
+  return cantidadErrores;
 }
 
 const $formulario = document.querySelector("#carta-a-santa");

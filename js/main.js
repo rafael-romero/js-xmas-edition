@@ -33,6 +33,10 @@ function validarDescripcionRegalo(descripcionRegalo) {
   }
 }
 
+function redirigirAListaDeDeseos(){
+  window.location.href = "wishlist.html";
+}                      
+
 function validarFormulario(event) {
   const nombre = $formulario.nombre.value;
   const ciudad = $formulario.ciudad.value;
@@ -50,9 +54,10 @@ function validarFormulario(event) {
 
   esExito = manejarErrores(errores) === 0;
 
-  if(esExito){
+  if (esExito) {
     $formulario.className = "oculto";
     document.querySelector("#exito").className = "";
+    const tiempoDeEspera = setTimeout(redirigirAListaDeDeseos, 5000);
   }
 
   event.preventDefault();
@@ -60,7 +65,7 @@ function validarFormulario(event) {
 
 function manejarErrores(errores) {
   const llaves = Object.keys(errores);
-  const $errores = document.querySelector('#errores');
+  const $errores = document.querySelector("#errores");
   let cantidadErrores = 0;
 
   llaves.forEach(function (llave) {
@@ -69,17 +74,18 @@ function manejarErrores(errores) {
     if (error) {
       cantidadErrores++;
       $formulario[llave].className = "error";
-      
-      const $error = document.createElement('li');
+
+      const $error = document.createElement("li");
       $error.innerText = error;
-      $errores.appendChild($error);
-
-
+      $error.id = llave + "errorEnLi";
+      if (!document.querySelector(`#${llave}errorEnLi`)) {
+        $errores.appendChild($error);
+      }
     } else {
       $formulario[llave].className = "";
-      //borrar el campo adecuado, lo creo si no existe, si existe y no hay error lo borro
-
-
+      if (document.querySelector(`#${llave}errorEnLi`)) {
+        document.querySelector(`#${llave}errorEnLi`).remove();
+      }
     }
   });
   return cantidadErrores;

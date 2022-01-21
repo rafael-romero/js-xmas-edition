@@ -49,7 +49,7 @@ $botonSiguiente.onclick = function () {
   const errores = {
     "cantidad-familiares": errorCantidadFamiliares
   };
-
+  eliminaredadFamiliares();
   crearEdadFamiliares(cantidadFamiliares);
 
   return false;
@@ -103,6 +103,7 @@ $botonCalcular.onclick = function () {
     calcularEdadMayor(edadFamiliares);
   document.querySelector("#promedio-edad").textContent =
     calcularEdadPromedio(edadFamiliares).toFixed(2);
+  document.querySelector("#resultados").className = "";  
   return false;
 };
 
@@ -124,6 +125,7 @@ const $botonEmpezarDeCero = document.querySelector("#resetear");
 $botonEmpezarDeCero.onclick = function () {
   eliminaredadFamiliares();
   eliminarDatosCalculados();
+  document.querySelector("#resultados").className = "oculto";  
 
   return false;
 };

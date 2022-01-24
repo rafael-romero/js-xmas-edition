@@ -1,20 +1,26 @@
 function crearEdadFamiliares(numero) {
   for (i = 0; i < numero; i++) {
-    labelFamiliar = document.createElement("label");
+    const labelFamiliar = document.createElement("label");
     labelFamiliar.className = "labelsFamiliar";
-    textoEdadFamiliar = document.createTextNode(`Edad familiar nº${i + 1}`);
+    const textoEdadFamiliar = document.createTextNode(`Edad familiar nº${i + 1}`);
 
-    input = document.createElement("input");
+    const input = document.createElement("input");
     input.type = "number";
     input.id = `input-familiar-${[i]}`;
     input.className = "input-familiar";
 
-    elementoMain = document.querySelector("main");
+    const elementoMain = document.querySelector("main");
 
-    br = document.createElement("br");
+    const b = document.createElement("b");
+    b.className = "oculto";
+    b.type = "text";
+    b.id = `negrita-error-input-familiar-${[i]}`;
+
+    const br = document.createElement("br");
 
     labelFamiliar.appendChild(textoEdadFamiliar);
     labelFamiliar.appendChild(input);
+    labelFamiliar.appendChild(b);
     labelFamiliar.appendChild(br);
     elementoMain.appendChild(labelFamiliar);
   }
@@ -22,36 +28,44 @@ function crearEdadFamiliares(numero) {
 
 
 function validarCantidadFamiliares(cantidadFamiliares){
-  if (cantidadFamiliares.length === 0){
-    return "Debe ingresar al menos un familiar"
+  if (cantidadFamiliares === "0"){
+    return "Debe ingresar al menos un familiar";
   }
 
-  if (!/^[0-9]+$/.test(cantidadFamiliares)){
-    return "Solo puede ingresar numeros enteros"
+  if (!/^\d+$/.test(cantidadFamiliares)){
+    return "Solo puede ingresar numeros enteros positivos";
   }
-  
-  if (cantidadFamiliares > 100)
-    return "Es asombroso que tenga tantos familiares"
 
   return "";
 }
 
 
-
-
 const $botonSiguiente = document.querySelector("#siguiente");
+const $botonCalcular = document.querySelector("#calcular");
+const $botonEmpezarDeCero = document.querySelector("#resetear");
 
 $botonSiguiente.onclick = function () {
   const $cantidadFamiliares = document.querySelector("#cantidad-familiares");
   const cantidadFamiliares = Number($cantidadFamiliares.value);
-
   const errorCantidadFamiliares = validarCantidadFamiliares(cantidadFamiliares);
-  const errores = {
-    "cantidad-familiares": errorCantidadFamiliares
-  };
-  eliminaredadFamiliares();
-  crearEdadFamiliares(cantidadFamiliares);
+  const $errorSiguiente = document.querySelector("#errorSiguiente")
+  document.querySelector("#resultados").className = "oculto"; 
 
+  if(errorCantidadFamiliares){
+    $errorSiguiente.innerText = "ADVERTENCIA: " + errorCantidadFamiliares;
+    $errorSiguiente.className = "";
+    $cantidadFamiliares.className = "error";
+    $botonCalcular.className = "oculto";
+    $botonEmpezarDeCero.className = "oculto";
+  } else {
+    $cantidadFamiliares.className = "";
+    $errorSiguiente.className = "oculto";
+    eliminaredadFamiliares();
+    crearEdadFamiliares(cantidadFamiliares);
+    $botonCalcular.className = "";
+    $botonEmpezarDeCero.className = "";
+  }  
+  
   return false;
 };
 
@@ -91,19 +105,58 @@ function calcularEdadPromedio(edades) {
   return totalEdades / edades.length;
 }
 
-const $botonCalcular = document.querySelector("#calcular");
+function validarEdadFamiliares(edadFamiliares, objetoErrorEdades){
+  edadFamiliares.forEach(function(edads){
+    if (edads === "0"){
+      objetoErrorEdades[`input-familiar-${index}`] = "Debe ingresar la edad de su familiar";
+    } else if (!/^\d+$/.test(edads)){
+        objetoErrorEdades[`input-familiar-${index}`] = "Solo puede ingresar numeros enteros positivos";
+    } else{
+        objetoErrorEdades[`input-familiar-${index}`] = "";
+    }  
+  });
+  return objetoErrorEdades;
+}
 
-$botonCalcular.onclick = function () {
-  const $edadesFamiliares = document.querySelectorAll(".input-familiar");
-  const edadFamiliares = mostrarEdades($edadesFamiliares);
+function marcarErroresEdades(objeto){
+  const llavesErrores = Object.keys(objeto);
+  let cantidadErrores = 0;
+  llavesErrores.forEach(function(llave){
+    const $error = objeto[llave];
+    if ($error){
+      const $inputFamiliar = document.querySelector("#llave");
+      $inputFamiliar.className = "error";
+      cantidadErrores++;
+      const $cartelEnNegritaDeError = document.querySelector(`#negrita-error-${llave}`)
+      $cartelEnNegritaDeError.innerText = "ADVERTENCIA: "+ $error;
+      $cartelEnNegritaDeError.className = "";
+    }
+  });  
+  return cantidadErrores;
+}
 
+function calcularYMostrarResultados(){
   document.querySelector("#menor-edad").textContent =
     calcularEdadMenor(edadFamiliares);
   document.querySelector("#mayor-edad").textContent =
     calcularEdadMayor(edadFamiliares);
   document.querySelector("#promedio-edad").textContent =
     calcularEdadPromedio(edadFamiliares).toFixed(2);
-  document.querySelector("#resultados").className = "";  
+  document.querySelector("#resultados").className = ""; 
+}
+
+
+$botonCalcular.onclick = function () {
+  const $edadesFamiliares = document.querySelectorAll(".input-familiar");
+  const edadFamiliares = mostrarEdades($edadesFamiliares);
+
+  const objetoErrorEdades ={};
+  objetoErrorEdades = validarEdadFamiliares(edadFamiliares, objetoErrorEdades);
+  const sonValidasLasEdades = (marcarErroresEdades(objetoErrorEdades)) === 0;
+  if (sonValidasLasEdades){
+    calcularYMostrarResultados();
+  }
+  
   return false;
 };
 
@@ -120,12 +173,12 @@ function eliminarDatosCalculados() {
   document.querySelector("#promedio-edad").textContent = " ";
 }
 
-const $botonEmpezarDeCero = document.querySelector("#resetear");
 
 $botonEmpezarDeCero.onclick = function () {
   eliminaredadFamiliares();
   eliminarDatosCalculados();
   document.querySelector("#resultados").className = "oculto";  
-
+  $botonEmpezarDeCero.className = "oculto";
+  $botonCalcular.className = "oculto";
   return false;
 };

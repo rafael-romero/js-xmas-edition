@@ -105,17 +105,14 @@ function calcularEdadPromedio(edades) {
   return totalEdades / edades.length;
 }
 
-function validarEdadFamiliares(edadFamiliares, objetoErrorEdades){
-  edadFamiliares.forEach(function(edads){
-    if (edads === "0"){
-      objetoErrorEdades[`input-familiar-${index}`] = "Debe ingresar la edad de su familiar";
-    } else if (!/^\d+$/.test(edads)){
-        objetoErrorEdades[`input-familiar-${index}`] = "Solo puede ingresar numeros enteros positivos";
-    } else{
-        objetoErrorEdades[`input-familiar-${index}`] = "";
-    }  
-  });
-  return objetoErrorEdades;
+function validarEdadFamiliares(edads){
+  if (edads === "0"){
+    return "Debe ingresar la edad de su familiar";
+  } else if (!/^\d+$/.test(edads)){
+      return "Solo puede ingresar numeros enteros positivos";
+  } else{
+      return "";
+  }  
 }
 
 function marcarErroresEdades(objeto){
@@ -124,18 +121,27 @@ function marcarErroresEdades(objeto){
   llavesErrores.forEach(function(llave){
     const $error = objeto[llave];
     if ($error){
-      const $inputFamiliar = document.querySelector("#llave");
+      const $inputFamiliar = document.querySelector(`#${llave}`);
       $inputFamiliar.className = "error";
       cantidadErrores++;
       const $cartelEnNegritaDeError = document.querySelector(`#negrita-error-${llave}`)
       $cartelEnNegritaDeError.innerText = "ADVERTENCIA: "+ $error;
       $cartelEnNegritaDeError.className = "";
+    } else{ 
+        const $inputFamiliar = document.querySelector(`#${llave}`);
+        if($inputFamiliar.className === "error" ){
+          $inputFamiliar.className = "";
+          const $cartelEnNegritaDeError = document.querySelector(`#negrita-error-${llave}`)
+          $cartelEnNegritaDeError.innerText = "";
+          $cartelEnNegritaDeError.className = "oculto";
+          cantidadErrores--;
+        }
     }
   });  
   return cantidadErrores;
 }
 
-function calcularYMostrarResultados(){
+function calcularYMostrarResultados(edadFamiliares){
   document.querySelector("#menor-edad").textContent =
     calcularEdadMenor(edadFamiliares);
   document.querySelector("#mayor-edad").textContent =
@@ -149,12 +155,14 @@ function calcularYMostrarResultados(){
 $botonCalcular.onclick = function () {
   const $edadesFamiliares = document.querySelectorAll(".input-familiar");
   const edadFamiliares = mostrarEdades($edadesFamiliares);
-
   const objetoErrorEdades ={};
-  objetoErrorEdades = validarEdadFamiliares(edadFamiliares, objetoErrorEdades);
+  edadFamiliares.forEach(function(edad, index){
+    errorEdades = validarEdadFamiliares(edad);
+    objetoErrorEdades[`input-familiar-${index}`] = errorEdades;
+  });
   const sonValidasLasEdades = (marcarErroresEdades(objetoErrorEdades)) === 0;
   if (sonValidasLasEdades){
-    calcularYMostrarResultados();
+    calcularYMostrarResultados(edadFamiliares);
   }
   
   return false;

@@ -157,7 +157,7 @@ $botonCalcular.onclick = function () {
   const edadFamiliares = mostrarEdades($edadesFamiliares);
   const objetoErrorEdades ={};
   edadFamiliares.forEach(function(edad, index){
-    errorEdades = validarEdadFamiliares(edad);
+    const errorEdades = validarEdadFamiliares(edad);
     objetoErrorEdades[`input-familiar-${index}`] = errorEdades;
   });
   const sonValidasLasEdades = (marcarErroresEdades(objetoErrorEdades)) === 0;

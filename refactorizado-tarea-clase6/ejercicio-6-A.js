@@ -1,4 +1,4 @@
-function crearEdadFamiliares(numero) {
+function crearInputsDeEdadFamiliares(numero) {
   for (i = 0; i < numero; i++) {
     const labelFamiliar = document.createElement("label");
     labelFamiliar.className = "labelsFamiliar";
@@ -168,7 +168,7 @@ $botonCalcular.onclick = function () {
   return false;
 };
 
-function eliminaredadFamiliares() {
+function eliminarInputsEdadFamiliares() {
   const $labelsFamiliar = document.querySelectorAll(".labelsFamiliar");
   for (i = 0; i < $labelsFamiliar.length; i++) {
     $labelsFamiliar[i].remove();
@@ -183,7 +183,7 @@ function eliminarDatosCalculados() {
 
 
 $botonEmpezarDeCero.onclick = function () {
-  eliminaredadFamiliares();
+  eliminarInputsEdadFamiliares();
   eliminarDatosCalculados();
   document.querySelector("#resultados").className = "oculto";  
   $botonEmpezarDeCero.className = "oculto";

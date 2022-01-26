@@ -28,7 +28,7 @@ function crearInputsDeEdadFamiliares(numero) {
 
 
 function validarCantidadFamiliares(cantidadFamiliares){
-  if (cantidadFamiliares === "0"){
+  if (cantidadFamiliares === 0){
     return "Debe ingresar al menos un familiar";
   }
 
@@ -106,7 +106,7 @@ function calcularEdadPromedio(edades) {
 }
 
 function validarEdadFamiliares(edads){
-  if (edads === "0"){
+  if (edads === 0){
     return "Debe ingresar la edad de su familiar";
   } else if (!/^\d+$/.test(edads)){
       return "Solo puede ingresar numeros enteros positivos";

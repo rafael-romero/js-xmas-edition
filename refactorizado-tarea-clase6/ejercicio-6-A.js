@@ -55,11 +55,11 @@ $botonSiguiente.onclick = function () {
     eliminarInputsEdadFamiliares();
     $errorSiguiente.innerText = "ADVERTENCIA: " + errorCantidadFamiliares; //escribe advertencia
     $errorSiguiente.className = ""; //muestra advertencia
-    $cantidadFamiliares.className = "error"; //enmarca el input con error en rojo
+    $cantidadFamiliares.classList.add("error"); //enmarca el input con error en rojo
     $botonCalcular.className = "oculto"; //oculta boton calcular
     $botonEmpezarDeCero.className = "oculto"; //oculta boton empezar de cero
   } else { // si no hubo error
-    $cantidadFamiliares.className = ""; // elimina el marco rojo del input
+    $cantidadFamiliares.classList.remove("error"); // elimina el marco rojo del input
     $errorSiguiente.className = "oculto"; // oculta la advertencia
     eliminarInputsEdadFamiliares();
     crearInputsDeEdadFamiliares(cantidadFamiliares);
@@ -70,7 +70,7 @@ $botonSiguiente.onclick = function () {
   return false;
 };
 
-function mostrarEdades(listaNodos) {
+function obtenerEdadesInputs(listaNodos) {
   const edades = [];
   for (i = 0; i < listaNodos.length; i++) {
     edades.push(Number(listaNodos[i].value));
@@ -123,7 +123,7 @@ function marcarErroresEdades(objeto){
     const $error = objeto[llave];
     if ($error){
       const $inputFamiliar = document.querySelector(`#${llave}`);
-      $inputFamiliar.className = "error";
+      $inputFamiliar.classList.add("error");
       cantidadErrores++;
       const $cartelEnNegritaDeError = document.querySelector(`#negrita-error-${llave}`)
       $cartelEnNegritaDeError.innerText = "ADVERTENCIA: "+ $error;
@@ -131,7 +131,7 @@ function marcarErroresEdades(objeto){
     } else{ 
         const $inputFamiliar = document.querySelector(`#${llave}`);
         if($inputFamiliar.className === "error" ){
-          $inputFamiliar.className = "";
+          $inputFamiliar.classList.remove("error");
           const $cartelEnNegritaDeError = document.querySelector(`#negrita-error-${llave}`)
           $cartelEnNegritaDeError.innerText = "";
           $cartelEnNegritaDeError.className = "oculto";
@@ -155,7 +155,7 @@ function calcularYMostrarResultados(edadFamiliares){
 
 $botonCalcular.onclick = function () {
   const $edadesFamiliares = document.querySelectorAll(".input-familiar");
-  const edadFamiliares = mostrarEdades($edadesFamiliares);
+  const edadFamiliares = obtenerEdadesInputs($edadesFamiliares);
   const objetoErrorEdades ={};
   edadFamiliares.forEach(function(edad, index){
     const errorEdades = validarEdadFamiliares(edad);

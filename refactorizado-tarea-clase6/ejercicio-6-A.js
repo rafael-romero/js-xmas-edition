@@ -51,19 +51,20 @@ $botonSiguiente.onclick = function () {
   const $errorSiguiente = document.querySelector("#errorSiguiente")
   document.querySelector("#resultados").className = "oculto"; 
 
-  if(errorCantidadFamiliares){
-    $errorSiguiente.innerText = "ADVERTENCIA: " + errorCantidadFamiliares;
-    $errorSiguiente.className = "";
-    $cantidadFamiliares.className = "error";
-    $botonCalcular.className = "oculto";
-    $botonEmpezarDeCero.className = "oculto";
-  } else {
-    $cantidadFamiliares.className = "";
-    $errorSiguiente.className = "oculto";
-    eliminaredadFamiliares();
-    crearEdadFamiliares(cantidadFamiliares);
-    $botonCalcular.className = "";
-    $botonEmpezarDeCero.className = "";
+   if(errorCantidadFamiliares){//si hubo error
+    eliminarInputsEdadFamiliares();
+    $errorSiguiente.innerText = "ADVERTENCIA: " + errorCantidadFamiliares; //escribe advertencia
+    $errorSiguiente.className = ""; //muestra advertencia
+    $cantidadFamiliares.className = "error"; //enmarca el input con error en rojo
+    $botonCalcular.className = "oculto"; //oculta boton calcular
+    $botonEmpezarDeCero.className = "oculto"; //oculta boton empezar de cero
+  } else { // si no hubo error
+    $cantidadFamiliares.className = ""; // elimina el marco rojo del input
+    $errorSiguiente.className = "oculto"; // oculta la advertencia
+    eliminarInputsEdadFamiliares();
+    crearInputsDeEdadFamiliares(cantidadFamiliares);
+    $botonCalcular.className = ""; // muestra boton calcular
+    $botonEmpezarDeCero.className = ""; // muestra boton empezar de cero
   }  
   
   return false;

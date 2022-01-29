@@ -125,24 +125,24 @@ function marcarErroresEdades(objeto) {
       $inputFamiliar.classList.add("error"); //marca el input  con rojo
       const $cartelEnNegritaDeError = document.querySelector(
         `#negrita-error-${llave}`
-      );
+      ); 
       $cartelEnNegritaDeError.innerText = "ADVERTENCIA: " + $errorTextual; //escribe la advertencia
       $cartelEnNegritaDeError.className = ""; // muestra la advertencia
       cantidadErrores++;
     } else {
-      const $inputFamiliar = document.querySelector(`#${llave}`);
-      if ($inputFamiliar.classList.contains("error")) {
-        $inputFamiliar.classList.remove("error");
-        if (cantidadErrores > 0) {
-          cantidadErrores--;
+        const $inputFamiliar = document.querySelector(`#${llave}`);
+        if ($inputFamiliar.classList.contains("error")) {
+          $inputFamiliar.classList.remove("error");
+          if (cantidadErrores > 0) {
+            cantidadErrores--;
+          }
         }
+        const $cartelEnNegritaDeError = document.querySelector(
+          `#negrita-error-${llave}`
+        );
+        $cartelEnNegritaDeError.innerText = "";
+        $cartelEnNegritaDeError.className = "oculto";
       }
-      const $cartelEnNegritaDeError = document.querySelector(
-        `#negrita-error-${llave}`
-      );
-      $cartelEnNegritaDeError.innerText = "";
-      $cartelEnNegritaDeError.className = "oculto";
-    }
   });
   return cantidadErrores;
 }

@@ -1,3 +1,6 @@
+window.localStorage.clear();
+let indexAlmacenamientoLocal = localStorage.length;
+
 function validarNombre(nombre) {
   if (nombre.length === 0) {
     return "Este campo debe tener algun caracter";
@@ -55,9 +58,10 @@ function validarFormulario(event) {
   esExito = manejarErrores(errores) === 0;
 
   if (esExito) {
+    guardarInformacionEnAlmacenamientoLocal();
     $formulario.className = "oculto";
     document.querySelector("#exito").className = "";
-    const tiempoDeEspera = setTimeout(redirigirAListaDeDeseos, 5000);
+  //const tiempoDeEspera = setTimeout(redirigirAListaDeDeseos, 5000);
   }
 
   event.preventDefault();
@@ -91,5 +95,22 @@ function manejarErrores(errores) {
   return cantidadErrores;
 }
 
+
+function guardarInformacionEnAlmacenamientoLocal(){
+  const $nombre = document.querySelector("#nombre").value;
+  const $descripcionRegalo = $formulario["descripcion-regalo"].value;
+  const clave = "usuario"+indexAlmacenamientoLocal;
+  localStorage.setItem(clave, JSON.stringify(
+    {
+      nombreDeUsuario:$nombre,
+      descripcionRegalo:$descripcionRegalo
+    }
+  ));
+  indexAlmacenamientoLocal++;
+
+}
+
+
 const $formulario = document.querySelector("#carta-a-santa");
 $formulario.onsubmit = validarFormulario;
+

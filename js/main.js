@@ -58,7 +58,6 @@ function validarFormulario(event) {
   esExito = manejarErrores(errores) === 0;
 
   if (esExito) {
-    guardarInformacionEnAlmacenamientoLocal();
     $formulario.className = "oculto";
     document.querySelector("#exito").className = "";
     const tiempoDeEspera = setTimeout(redirigirAListaDeDeseos, 5000);
@@ -92,6 +91,7 @@ function manejarErrores(errores) {
       }
     }
   });
+  guardarInformacionEnAlmacenamientoLocal();
   return cantidadErrores;
 }
 

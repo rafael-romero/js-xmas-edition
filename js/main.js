@@ -62,6 +62,7 @@ function validarFormulario(event) {
     $formulario.className = "oculto";
     document.querySelector("#exito").className = "";
   //const tiempoDeEspera = setTimeout(redirigirAListaDeDeseos, 5000);
+    mostrarDeseos();
   }
 
   event.preventDefault();
@@ -110,6 +111,15 @@ function guardarInformacionEnAlmacenamientoLocal(){
 
 }
 
+function mostrarDeseos(){
+  const $ul = document.querySelector(".wish-list")
+  for(i = 0; i < localStorage.length; i++){
+    const $li = document.createElement("li");
+    const datosAlmacenados = JSON.parse(localStorage.getItem(`usuario${[i]}`));
+    $li.appendChild(document.createTextNode(datosAlmacenados.descripcionRegalo));
+    $ul.appendChild($li)
+  }
+}
 
 const $formulario = document.querySelector("#carta-a-santa");
 $formulario.onsubmit = validarFormulario;

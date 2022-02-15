@@ -117,7 +117,7 @@ function mostrarDeseos(){
     const $li = document.createElement("li");
     const datosAlmacenados = JSON.parse(localStorage.getItem(`usuario${[i]}`));
     $li.appendChild(document.createTextNode(datosAlmacenados.descripcionRegalo));
-    $ul.appendChild($li)
+    $ul.appendChild($li);
   }
 }
 

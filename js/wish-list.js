@@ -1,6 +1,6 @@
-let indexAlmacenamientoLocal = localStorage.length;
 
 function guardarInformacionEnAlmacenamientoLocal(){
+    let indexAlmacenamientoLocal = localStorage.length;
     const $nombre = document.querySelector("#nombre").value;
     const $descripcionRegalo = $formulario["descripcion-regalo"].value;
     const clave = "usuario"+indexAlmacenamientoLocal;
@@ -10,8 +10,6 @@ function guardarInformacionEnAlmacenamientoLocal(){
         descripcionRegalo:$descripcionRegalo
       }
     ));
-    indexAlmacenamientoLocal++;
- 
 }
 
 function mostrarDeseos(){

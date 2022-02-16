@@ -35,7 +35,7 @@ function validarDescripcionRegalo(descripcionRegalo) {
 
 function redirigirAListaDeDeseos(){
   window.location.href = "wishlist.html";
-}                      
+}
 
 function validarFormulario(event) {
   const $formulario = document.querySelector("#carta-a-santa");
@@ -89,7 +89,9 @@ function manejarErrores(errores) {
       }
     }
   });
-  guardarInformacionEnAlmacenamientoLocal();
+  if (cantidadErrores === 0){
+    guardarInformacionEnAlmacenamientoLocal();
+  }
   return cantidadErrores;
 }
 

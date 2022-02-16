@@ -1,6 +1,3 @@
-window.localStorage.clear();
-let indexAlmacenamientoLocal = localStorage.length;
-
 function validarNombre(nombre) {
   if (nombre.length === 0) {
     return "Este campo debe tener algun caracter";
@@ -41,6 +38,7 @@ function redirigirAListaDeDeseos(){
 }                      
 
 function validarFormulario(event) {
+  const $formulario = document.querySelector("#carta-a-santa");
   const nombre = $formulario.nombre.value;
   const ciudad = $formulario.ciudad.value;
   const descripcionRegalo = $formulario["descripcion-regalo"].value;
@@ -55,7 +53,7 @@ function validarFormulario(event) {
     "descripcion-regalo": errorDescripcionRegalo,
   };
 
-  esExito = manejarErrores(errores) === 0;
+  const esExito = manejarErrores(errores) === 0;
 
   if (esExito) {
     $formulario.className = "oculto";
@@ -95,21 +93,5 @@ function manejarErrores(errores) {
   return cantidadErrores;
 }
 
-
-function guardarInformacionEnAlmacenamientoLocal(){
-  const $nombre = document.querySelector("#nombre").value;
-  const $descripcionRegalo = $formulario["descripcion-regalo"].value;
-  const clave = "usuario"+indexAlmacenamientoLocal;
-  localStorage.setItem(clave, JSON.stringify(
-    {
-      nombreDeUsuario:$nombre,
-      descripcionRegalo:$descripcionRegalo
-    }
-  ));
-  indexAlmacenamientoLocal++;
-
-}
-
 const $formulario = document.querySelector("#carta-a-santa");
-$formulario.onsubmit = validarFormulario();
-
+$formulario.onsubmit = validarFormulario;

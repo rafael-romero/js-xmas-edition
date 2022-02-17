@@ -16,7 +16,7 @@ function obtenerComportamientoRandom(){
 
 function obtenerRegaloAleatorio(){
     const cantidadDeDeseos = localStorage.length;
-    const numeroDeRegaloAleatorio = generaNumeroAleatorio(cantidadDeDeseos);
+    const numeroDeRegaloAleatorio = generaNumeroAleatorio(cantidadDeDeseos)-1;
     const regaloSeleccionado = JSON.parse(localStorage.getItem(`usuario${[numeroDeRegaloAleatorio]}`)).descripcionRegalo;
     document.querySelector(".santa-gift-text").textContent = regaloSeleccionado;
 }   

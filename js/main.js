@@ -35,9 +35,10 @@ function validarDescripcionRegalo(descripcionRegalo) {
 
 function redirigirAListaDeDeseos(){
   window.location.href = "wishlist.html";
-}                      
+}
 
 function validarFormulario(event) {
+  const $formulario = document.querySelector("#carta-a-santa");
   const nombre = $formulario.nombre.value;
   const ciudad = $formulario.ciudad.value;
   const descripcionRegalo = $formulario["descripcion-regalo"].value;
@@ -52,7 +53,7 @@ function validarFormulario(event) {
     "descripcion-regalo": errorDescripcionRegalo,
   };
 
-  esExito = manejarErrores(errores) === 0;
+  const esExito = manejarErrores(errores) === 0;
 
   if (esExito) {
     $formulario.className = "oculto";
@@ -88,6 +89,9 @@ function manejarErrores(errores) {
       }
     }
   });
+  if (cantidadErrores === 0){
+    guardarInformacionEnAlmacenamientoLocal();
+  }
   return cantidadErrores;
 }
 

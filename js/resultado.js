@@ -32,3 +32,9 @@ function obtenerImagenRegalo(){
     const numeroRegaloElegido = generaNumeroAleatorio(NUMERO_REGALOS_EN_CARPETA);
     document.querySelector(".santa-gift").src = listaDeImagenesURL[numeroRegaloElegido];
 }
+
+function cargarFuncionesAlIniciar(){
+    obtenerComportamientoRandom();
+    obtenerRegaloAleatorio();
+    obtenerImagenRegalo();
+}
